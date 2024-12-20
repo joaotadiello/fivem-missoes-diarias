@@ -24,7 +24,7 @@ function Core:SetCache(userId)
     local data = exports['oxmysql']:query_async('SELECT * FROM daily WHERE user_id = ?', {userId})
     if data and data[1] then
         data[1].data = json.decode(data[1].data)
-        if data[1].expireAt < os.time() then
+        if data[1].expireAt <= os.time() then
             data[1].data = {}
             data[1].updatedAt = os.time()
             data[1].expireAt = NEXT_UPDATE
@@ -53,6 +53,7 @@ function Core:SetCache(userId)
         NEXT_UPDATE,
         os.time()
     })
+    return true
 end
 
 --- Renova as missões diariamente
@@ -95,10 +96,6 @@ RegisterCommand('debug_daily',function()
         Wait(100)
     end
 end)
-
---- usar o lastUpdate para verificar se é necessário renovar as missões
---- associar no banco de dados o ostime para validar que deve adicionar a missoes do dia
---- 
 
 
 

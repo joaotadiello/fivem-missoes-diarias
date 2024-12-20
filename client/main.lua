@@ -38,9 +38,7 @@ end)
 
 RegisterNUICallback('mission:get:reward',function(missionKey,cb)
     local data = Remote.GetReawrd(missionKey)
-    print(json.encode(data,{indent = true}))
     local update = UpdateMission(data)
-    print(json.encode(update,{indent = true}))
     cb(update)
 end)
 

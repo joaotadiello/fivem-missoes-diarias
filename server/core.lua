@@ -43,7 +43,7 @@ function Core:SetCache(userId)
     self.cache[userId] = {
         data = {},
         updatedAt = os.time(),
-        connectionStart = os.time(),
+        connection_start = os.time(),
         expireAt = NEXT_UPDATE
     }
     exports['oxmysql']:insert_async('INSERT INTO daily (user_id,data,updatedAt,expireAt,connection_start) VALUES (?,?,?,?,?)', {
